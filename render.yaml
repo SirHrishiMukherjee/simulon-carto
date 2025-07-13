@@ -6,4 +6,4 @@ services:
     startCommand: gunicorn app:app
     envVars:
       - key: MONGO_URI
-        value: mongodb+srv://hrishimukherjee:l4rsbHJUkxRZCrys@simulon-cluster.fictdam.mongodb.net/?retryWrites=true&w=majority&appName=Simulon-Cluster
+        value: MONGO_URI
