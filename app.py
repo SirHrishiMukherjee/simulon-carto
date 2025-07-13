@@ -20,13 +20,5 @@ def get_markers():
     markers = list(markers_col.find({}, {"_id": 0}))
     return jsonify(markers)
 
-@app.route("/api/markers", methods=["POST"])
-def add_marker():
-    data = request.get_json()
-    if "x" in data and "y" in data and "label" in data:
-        markers_col.insert_one(data)
-        return jsonify({"status": "saved"}), 201
-    return jsonify({"error": "Invalid data"}), 400
-
 if __name__ == "__main__":
     app.run(debug=True)

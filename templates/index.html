@@ -97,14 +97,6 @@
   <div class="map-container">
     <div class="map-inner" id="mapInner" style="transform: scale(1);">
       <img src="{{ url_for('static', filename='map.jpg') }}" alt="Map" class="map-image" id="mapImage">
-
-      <!-- Example Markers -->
-      <div class="marker" style="top: 200px; left: 600px;">
-        <div class="marker-label">Node A</div>
-      </div>
-      <div class="marker" style="top: 400px; left: 1200px;">
-        <div class="marker-label">Outpost B</div>
-      </div>
     </div>
   </div>
 
@@ -129,41 +121,7 @@
         .then(markers => {
           markers.forEach(({ x, y, label }) => createMarker(x, y, label));
         });
-
-      // Handle click to add marker
-      mapInner.addEventListener("click", function(e) {
-        const rect = mapInner.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / scale;
-        const y = (e.clientY - rect.top) / scale;
-        const label = prompt("Enter label for this marker:");
-        if (!label) return;
-
-        createMarker(x, y, label);
-
-        // Save to backend
-        fetch("/api/markers", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ x, y, label })
-        }).then(res => {
-          if (!res.ok) alert("Failed to save marker");
-        });
-      });
-
-      function createMarker(x, y, label) {
-        const marker = document.createElement("div");
-        marker.className = "marker";
-        marker.style.left = `${x}px`;
-        marker.style.top = `${y}px`;
-
-        const markerLabel = document.createElement("div");
-        markerLabel.className = "marker-label";
-        markerLabel.textContent = label;
-
-        marker.appendChild(markerLabel);
-        mapInner.appendChild(marker);
-      }
-    </script>
+   </script>
 
 
 
