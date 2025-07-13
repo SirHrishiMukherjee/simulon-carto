@@ -115,15 +115,28 @@
       function resetZoom() { scale = 1; updateTransform(); }
       function updateTransform() { mapInner.style.transform = `scale(${scale})`; }
 
+      function createMarker(x, y, label) {
+        const marker = document.createElement("div");
+        marker.className = "marker";
+        marker.style.left = `${x}px`;
+        marker.style.top = `${y}px`;
+
+        const markerLabel = document.createElement("div");
+        markerLabel.className = "marker-label";
+        markerLabel.textContent = label;
+
+        marker.appendChild(markerLabel);
+        mapInner.appendChild(marker);
+      }
+
       // Load markers from backend
       fetch("/api/markers")
         .then(res => res.json())
         .then(markers => {
           markers.forEach(({ x, y, label }) => createMarker(x, y, label));
-        });
+        })
+        .catch(err => console.error("Failed to load markers:", err));
    </script>
-
-
 
 </body>
 </html>
